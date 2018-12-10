@@ -1,4 +1,5 @@
 import time
+from random import randint
 from NeedlemanWunsch import NW
 from Bio import pairwise2
 import random
@@ -8,6 +9,25 @@ def random_seq(len):
 
 def validate(res1, res2):
 	return int(res1.split("\n")[3])==int(res2[2])
+
+
+def get_data(data1, data2, l):
+    f1 = open(data1, "r")
+    f2 = open(data2, "r")
+    a = ""
+    b = ""
+
+    for line in f1.readlines():
+        a += line.strip()
+
+    for line in f2.readlines():
+        b += line.strip()
+
+    start_point = randint(0, min(len(a), len(b) - l))
+
+    if l < len(a) and l < len(b):
+        return a[start_point:start_point+l], b[start_point:start_point+l]
+    return 0, 0
 
 
 N_exp = 10
