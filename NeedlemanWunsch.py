@@ -1,9 +1,3 @@
-match = 1
-gap = 0
-mismatch = 0
-
-import random
-
 
 def cost(a, b):
     if a == b:
@@ -22,7 +16,7 @@ class Cell:
     # return str(self.parents)
 
 
-def NeedlemanWunsch(a, b):
+def NeedlemanWunsch(a, b, match, gap, mismatch):
     MATRIX = [[None for _ in range(len(a) + 1)] for _ in range(len(b) + 1)]
 
     for i in range(len(a) + 1):
@@ -93,5 +87,5 @@ def backtrack(MATRIX, a, b):
     return str_a[::-1] + "\n" + str_m[::-1] + "\n" + str_b[::-1] + "\n" + str(sc)
 
 
-def NW(a, b):
-    return backtrack(NeedlemanWunsch(a, b), a, b)
+def NW(a, b, match = 1, gap = 0, mismatch = 0):
+    return backtrack(NeedlemanWunsch(a, b, match, gap, mismatch), a, b)
