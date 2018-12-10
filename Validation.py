@@ -30,24 +30,26 @@ def get_data(data1, data2, l):
     return 0, 0
 
 
+
+
+def main(file1, file2, N_exp, Length):
+    res_NW = []
+    res_Bio = []
+    for i in range(N_exp):
+    	two_seq = get_data(file1, file2, Length)
+    	now = time.time()
+    	res1 = NW(*two_seq)
+    	res_NW.append(time.time()-now)
+
+    	now = time.time()
+    	res2 = pairwise2.align.globalxx(*two_seq)[0]
+    	res_Bio.append(time.time()-now)
+    	if not validate(res1, res2):
+    		raise ValueError
+
+    print(f"NW: For len {Length} time = {sum(res_NW)/len(res_NW)}")
+    print(f"Biopython: For len {Length} time = {sum(res_Bio)/len(res_Bio)}")
+
+
 N_exp = 10
 Length = 500
-
-res_NW = []
-res_Bio = []
-
-for i in range(N_exp):
-	two_seq = random_seq(Length)
-	now = time.time()
-	res1 = NW(*two_seq)
-	res_NW.append(time.time()-now)
-
-	now = time.time()
-	res2 = pairwise2.align.globalxx(*two_seq)[0]
-	res_Bio.append(time.time()-now)
-	if not validate(res1, res2):
-		raise ValueError
-
-print(f"NW: For len {Length} time = {sum(res_NW)/len(res_NW)}")
-print(f"Biopython: For len {Length} time = {sum(res_Bio)/len(res_Bio)}")
-
